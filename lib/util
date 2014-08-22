@@ -1,0 +1,40 @@
+#!/bin/bash
+
+function install {
+    ver=${OPENSHIFT_NODEJS_VERSION}
+
+    if ! [ -z "$OPENSHIFT_NODEJS_CUSTOM_VERSION" ]; then
+        ver="${OPENSHIFT_NODEJS_CUSTOM_VERSION}"
+    fi
+
+    zfile="node-${ver}-linux-x64.tar.gz"
+    zlink="http://nodejs.org/dist/${ver}/${zfile}"
+
+    #  Download and extract the gzipped tarball.
+    dldir="$OPENSHIFT_TMP_DIR/downloads"
+    mkdir -p "$dldir"
+
+    if ! curl -L -o "$dldir/$zfile" "$zlink"; then
+      echo "  - ERROR  -- download failed for $zlink"
+      echo "  - download uri = $dldir/$zfile"
+      return 1
+    fi
+
+    cd "$dldir"
+    mkdir -p tmp
+    rm -rf tmp/*
+    tar -xf "$zfile" -C tmp --strip-components 1
+
+    rm -rf ${OPENSHIFT_NODEJS_PATH}/*
+    mv -f tmp/* ${OPENSHIFT_NODEJS_PATH}
+
+    echo "  - Done installing Node.js version $ver"
+
+    npmglobals=${OPENSHIFT_NPM_GLOBALS}
+    if ! [ -z "$OPENSHIFT_NPM_CUSTOM_GLOBALS" ]; then
+        npmglobals="${OPENSHIFT_NPM_CUSTOM_GLOBALS}"
+    fi
+
+
+    npm install ${npmglobals} -g
+}
