@@ -20,7 +20,7 @@ mkdir -p tmp && tar -xf "$zfile" -C tmp --strip-components 1
 
 npm cache clear
 
-rm -rf ${OPENSHIFT_NODEJS_PATH}
+rm -rf ${OPENSHIFT_NODEJS_PATH}/*
 mv -f tmp/* ${OPENSHIFT_NODEJS_PATH}
 
 echo "  - Done installing Node.js version $ver"
