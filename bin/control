@@ -23,6 +23,10 @@ function restart() {
     start
 }
 
+function reload() {
+    echo > ${OPENSHIFT_NODEJS_VERSION} > ${OPENSHIFT_NODEJS_DIR}env/OPENSHIFT_NODEJS_VERSION
+}
+
 function tidy() {
   client_message "Emptying log dir: $OPENSHIFT_NODEJS_LOG_DIR"
   shopt -s dotglob
@@ -49,6 +53,7 @@ case "$1" in
     restart|graceful)    restart     ;;
     graceful-stop|stop)  stop        ;;
     status)              status      ;;
+    reload)              reload      ;;
     tidy)                tidy        ;;
     *) exit 0;
 esac
