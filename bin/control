@@ -24,7 +24,7 @@ function restart() {
 }
 
 function reload() {
-    echo > ${OPENSHIFT_NODEJS_VERSION} > ${OPENSHIFT_NODEJS_DIR}env/OPENSHIFT_NODEJS_VERSION
+    echo > ${OPENSHIFT_NODEJS_VERSION} > ${OPENSHIFT_NODEDIY_DIR}env/OPENSHIFT_NODEJS_VERSION
 }
 
 function tidy() {
