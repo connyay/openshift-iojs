@@ -24,7 +24,7 @@ function restart() {
 }
 
 function reload() {
-    npm -g ls | grep -v 'npm@' | awk '/@/ {print $2}' | awk -F@ '{print $1}' | xargs npm -g rm
+    npm ls -gp  --depth=0 | awk -F/node_modules/ '{print $2}' | grep -vE '^(npm|)$' | xargs npm -g rm
     npm cache clear
     ${OPENSHIFT_NODEDIY_DIR}bin/install
 }
