@@ -16,7 +16,7 @@ if ! curl -L -o "$dldir/$zfile" "$zlink"; then
 fi
 
 cd "$dldir"
-mkdir tmp && tar -xf "$zfile" -C tmp --strip-components 1
+mkdir -p tmp && tar -xf "$zfile" -C tmp --strip-components 1
 mv -f tmp/* ${OPENSHIFT_NODEJS_PATH}
 
 echo "  - Done installing Node.js version $ver"
