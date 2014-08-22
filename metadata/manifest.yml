@@ -1,11 +1,11 @@
 Name: node-diy
 Cartridge-Short-Name: NODEDIY
 Display-Name: Node DIY
-Description: "NodeJS cartridge that doesn't make any assumptions."
+Description: "Node.js cartridge that lets you take the wheel"
 Version: '0.1'
 Source-Url: https://github.com/connyay/openshift-node-diy.git
 License: "MIT"
-License-Url: http://opensource.org/licenses/MIT
+License-Url: https://github.com/connyay/openshift-node-diy/blob/master/LICENSE
 Cartridge-Version: 0.0.1
 Cartridge-Vendor: connyay
 Vendor: connyay
