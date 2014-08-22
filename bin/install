@@ -21,3 +21,5 @@ rm -rf ${OPENSHIFT_NODEJS_PATH}/*
 mv -f tmp/* ${OPENSHIFT_NODEJS_PATH}
 
 echo "  - Done installing Node.js version $ver"
+
+npm install ${OPENSHIFT_NPM_GLOBAL} -g
