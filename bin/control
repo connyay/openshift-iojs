@@ -7,9 +7,10 @@ function status() {
 }
 
 function start() {
+    logf="$OPENSHIFT_NODEJS_LOG_DIR/node.log"
     if [ -f "${OPENSHIFT_REPO_DIR}package.json" ]; then
         cd ${OPENSHIFT_REPO_DIR}
-        npm start
+        npm start >> $logf 2>&1 &
     fi
 }
 
@@ -20,6 +21,13 @@ function stop() {
 function restart() {
     stop
     start
+}
+
+function tidy() {
+  client_message "Emptying log dir: $OPENSHIFT_NODEJS_LOG_DIR"
+  shopt -s dotglob
+  rm -rf $OPENSHIFT_NODEJS_LOG_DIR/*
+  rm -rf ${OPENSHIFT_NODEJS_DIR}tmp/*
 }
 
 #
@@ -41,6 +49,7 @@ case "$1" in
     restart|graceful)    restart     ;;
     graceful-stop|stop)  stop        ;;
     status)              status      ;;
+    tidy)                tidy        ;;
     *) exit 0;
 esac
 
