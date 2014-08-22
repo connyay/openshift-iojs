@@ -18,7 +18,6 @@ fi
 cd "$dldir"
 mkdir -p tmp && tar -xf "$zfile" -C tmp --strip-components 1
 
-npm -g ls | grep -v 'npm@' | awk '/@/ {print $2}' | awk -F@ '{print $1}' | xargs npm -g rm
 npm cache clear
 
 rm -rf ${OPENSHIFT_NODEJS_PATH}
