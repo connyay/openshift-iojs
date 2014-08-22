@@ -1,0 +1,46 @@
+#!/bin/bash
+
+function status() {
+    echo "Status:"
+    node -v
+    npm -v
+}
+
+function start() {
+    if [ -f "${OPENSHIFT_REPO_DIR}package.json" ]; then
+        cd ${OPENSHIFT_REPO_DIR}
+        npm start
+    fi
+}
+
+function stop() {
+    killall node
+}
+
+function restart() {
+    stop
+    start
+}
+
+#
+#  main():
+#
+
+# Ensure arguments.
+if ! [ $# -eq 1 ]; then
+    echo "Usage: $0 [start|restart|graceful|graceful-stop|stop|status]"
+    exit 1
+fi
+
+# Source utility functions.
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+# Handle commands.
+case "$1" in
+    start)               start       ;;
+    restart|graceful)    restart     ;;
+    graceful-stop|stop)  stop        ;;
+    status)              status      ;;
+    *) exit 0;
+esac
+

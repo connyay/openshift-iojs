@@ -1,0 +1,26 @@
+#!/bin/bash
+
+ver=${OPENSHIFT_NODEJS_VERSION}
+
+zfile="node-${ver}-linux-x64.tar.gz"
+zlink="http://nodejs.org/dist/${ver}/${zfile}"
+
+instdir="$OPENSHIFT_DATA_DIR"
+
+#  Download and extract the gzipped tarball.
+dldir="$OPENSHIFT_DATA_DIR/downloads"
+mkdir -p "$dldir"
+
+echo "  - Downloading and extracting $zlink ... "
+
+if ! curl -L -o "$dldir/$zfile" "$zlink"; then
+  echo "  - ERROR  -- download failed for $zlink"
+  echo "  - download uri = $dldir/$zfile"
+  return 1
+fi
+
+cd "$instdir"
+mkdir tmp && tar -xf "$dldir/$zfile" -C tmp --strip-components 1
+mv -f tmp/* ${OPENSHIFT_NODEJS_PATH}
+
+echo "  - Done installing Node.js version $ver"
