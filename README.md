@@ -29,7 +29,7 @@ How can I modify the cartridge
 1. Run `rhc env set OPENSHIFT_NODEJS_CUSTOM_VERSION="v0.11.13" -a <app name>`
 2. Run `rhc cartridge reload "http://cartreflect-claytondev.rhcloud.com/reflect?github=connyay/openshift-node-diy" -a <app name>`
 
-***Heads up!***
+***Heads up!***  
 The cartridge defaults to installing grunt and bower globally. Bower depends on node >=0.10.0. If you wish to use an older version of node set `$OPENSHIFT_NPM_CUSTOM_GLOBALS` to not include bower.
 
 ##### Install more npm packages globally
