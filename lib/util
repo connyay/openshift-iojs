@@ -32,6 +32,8 @@ function install {
     fi
     ver=$(curl --silent --get ${semver_url})
 
+    client_message "Resolved ${requested_ver} against semver.io and received ${ver}"
+
     zfile="node-v${ver}-linux-x64.tar.gz"
     zlink="http://nodejs.org/dist/v${ver}/${zfile}"
 
