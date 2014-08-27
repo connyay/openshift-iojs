@@ -1,17 +1,20 @@
 #!/bin/bash
 
-function status() {
-    echo "Status:\n"
-    echo "Node version:"
-    node -v
-    echo "\nNPM version:"
-    npm -v
-
+function is_node_running {
     ps axco command | grep -w '^node$' > /dev/null
-    if [ $? -eq 0 ]; then
-      echo "Node is running."
+}
+
+function status() {
+    client_message "Status:"
+    node_ver=$(node -v)
+    client_message "Node version: ${node_ver}"
+    npm_ver=$(npm -v)
+    client_message "NPM version: ${npm_ver}"
+
+    if [ is_node_running ]; then
+      client_message "Node is running."
     else
-      echo "Node is not running."
+      client_message "Node is not running."
     fi
 }
 
@@ -19,14 +22,17 @@ function start() {
     logf="$OPENSHIFT_NODEJS_LOG_DIR/node.log"
     if [ -f "${OPENSHIFT_REPO_DIR}package.json" ]; then
         cd ${OPENSHIFT_REPO_DIR}
+        client_message "Starting node using npm start"
         npm start >> $logf 2>&1 &
     fi
 }
 
 function stop() {
-    ps axco command | grep -w '^node$' > /dev/null
-    if [ $? -eq 0 ]; then
+    if [ is_node_running ]; then
+      client_message "Stopping node"
       killall node
+    else
+      client_message "Could not stop node... Is it running?"
     fi
 }
 
@@ -37,7 +43,9 @@ function restart() {
 
 function reload() {
     source "${OPENSHIFT_NODEDIY_DIR}lib/util"
+    client_message "Reloading cartridge"
     install
+    client_message "Restarting cartridge"
     restart
 }
 
