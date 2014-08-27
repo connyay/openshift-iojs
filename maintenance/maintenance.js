@@ -13,7 +13,7 @@ if ('production' === env) {
     port = process.env.OPENSHIFT_NODEDIY_PORT || port;
 }
 
-fs.readFile('./503.html', function (err, data) {
+fs.readFile(__dirname + '/503.html', function (err, data) {
     if (err) { throw err; }
     index = data;
 });
