@@ -6,8 +6,8 @@
 
 What this cartridge provides out of the box
 ---
-1. **node.js** v0.10.31
-2. **npm** 1.4.23
+1. **node.js** ([latest stable](https://semver.io/node/stable) currently 0.10.31)
+2. **npm** (latest stable currently 1.4.23)
 3. **grunt**
 4. **bower**
 
@@ -15,7 +15,7 @@ What this cartridge does out of the box
 ---
 *Not much.*
 
-1. Installs node.js (version specified by `$OPENSHIFT_NODEJS_VERSION`)
+1. Installs node.js (version specified by `$OPENSHIFT_NODEJS_VERSION` and resolved by [semver.io](https://semver.io))
 2. Installs grunt & bower globally (specified by `$OPENSHIFT_NPM_GLOBALS`)
 3. Allows the user to manually install required dependencies (in a `build` [action_hook](http://openshift.github.io/documentation/oo_user_guide.html#action-hooks))
 4. Runs `npm start` if `package.json` is found in repo directory (log is written to `$OPENSHIFT_NODEJS_LOG_DIR`)
@@ -24,9 +24,9 @@ How can I modify the cartridge
 ---
 
 ##### Use a different version of node
-###### (using v0.11.13 as an example)
+###### (using 0.11.13 as an example)
 
-1. Run `rhc env set OPENSHIFT_NODEJS_CUSTOM_VERSION="v0.11.13" -a <app name>`
+1. Run `rhc env set OPENSHIFT_NODEJS_CUSTOM_VERSION="0.11.13" -a <app name>`
 2. Run `rhc cartridge reload "http://cartreflect-claytondev.rhcloud.com/reflect?github=connyay/openshift-node-diy" -a <app name>`
 
 ***Heads up!***  
@@ -45,3 +45,4 @@ These repos helped out a ton while developing this cartridge.
 1. [engineersamuel/openshift-origin-cartridge-nodejs](https://github.com/engineersamuel/openshift-origin-cartridge-nodejs)
 2. [wshearn/openshift-origin-cartridge-nodejs](https://github.com/wshearn/openshift-origin-cartridge-nodejs)
 3. [ramr/nodejs-custom-version-openshift](https://github.com/ramr/nodejs-custom-version-openshift)
+4. [heroku/heroku-buildpack-nodejs](https://github.com/heroku/heroku-buildpack-nodejs)
