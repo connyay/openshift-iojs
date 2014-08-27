@@ -34,6 +34,7 @@ function stop() {
     else
       client_message "Could not stop node... Is it running?"
     fi
+    exit 0
 }
 
 function restart() {
