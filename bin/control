@@ -1,6 +1,9 @@
 #!/bin/bash
 
 function is_node_running {
+    if [ -f ${OPENSHIFT_DATA_DIR}/maintenance.pid ]; then
+        exit 0
+    fi
     ps axco command | grep -w '^node$' > /dev/null
 }
 
@@ -21,6 +24,7 @@ function status() {
 function start() {
     echo "Stopping maintenance web server."
     kill -9 `cat ${OPENSHIFT_DATA_DIR}/maintenance.pid`
+    rm ${OPENSHIFT_DATA_DIR}/maintenance.pid
 
     logf="$OPENSHIFT_NODEJS_LOG_DIR/node.log"
     if [ -f "${OPENSHIFT_REPO_DIR}package.json" ]; then
