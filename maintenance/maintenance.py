@@ -4,8 +4,8 @@ import os
 import time
 import BaseHTTPServer
 
-HOST_NAME = os.getenv("OPENSHIFT_DIY_IP")
-PORT_NUMBER = 8080
+HOST_NAME = os.getenv("OPENSHIFT_NODEDIY_IP")
+PORT_NUMBER = os.getenv("OPENSHIFT_NODEDIY_PORT")
 
 class MaintenanceHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     def do_GET(self):
