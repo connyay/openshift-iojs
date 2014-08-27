@@ -10,8 +10,10 @@ Cartridge-Version: 0.0.1
 Cartridge-Vendor: connyay
 Vendor: connyay
 Categories:
+  - service
+  - javascript
+  - nodejs
   - web_framework
-  - experimental
 Cart-Data:
   - Key: OPENSHIFT_DIY_LOG_DIR
     Type: environment
@@ -44,7 +46,8 @@ Cart-Data:
     Type: environment
     Description: "Unique ID which identified the gear. This value changes between gears."
 Provides:
-  - diy-0.1
+  - nodejs-0.10
+  - "nodejs"
   - node-diy
 Publishes:
   publish-http-url:
@@ -63,7 +66,8 @@ Scaling:
   Max: -1
 Group-Overrides:
   - components:
-    - web-proxy
+    - nodejs-0.10
+    - web_proxy
 Endpoints:
   - Private-IP-Name:   IP
     Private-Port-Name: PORT
