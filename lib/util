@@ -1,14 +1,23 @@
 #!/bin/bash
 
 function install {
-    ver=${OPENSHIFT_NODEJS_VERSION}
+    requested_ver=${OPENSHIFT_NODEJS_VERSION}
 
     if ! [ -z "$OPENSHIFT_NODEJS_CUSTOM_VERSION" ]; then
-        ver="${OPENSHIFT_NODEJS_CUSTOM_VERSION}"
+        requested_ver="${OPENSHIFT_NODEJS_CUSTOM_VERSION}"
     fi
 
-    zfile="node-${ver}-linux-x64.tar.gz"
-    zlink="http://nodejs.org/dist/${ver}/${zfile}"
+    semver_url="https://semver.io/node/"
+
+    if (echo ${requested_ver} | grep -q -E "stable|unstable"); then
+        semver_url="${semver_url}${requested_ver}"
+    else
+        semver_url="${semver_url}resolve/${requested_ver}"
+    fi
+    ver=$(curl --silent --get ${semver_url})
+
+    zfile="node-v${ver}-linux-x64.tar.gz"
+    zlink="http://nodejs.org/dist/v${ver}/${zfile}"
 
     #  Download and extract the gzipped tarball.
     dldir="$OPENSHIFT_TMP_DIR/downloads"
@@ -34,7 +43,6 @@ function install {
     if ! [ -z "$OPENSHIFT_NPM_CUSTOM_GLOBALS" ]; then
         npmglobals="${OPENSHIFT_NPM_CUSTOM_GLOBALS}"
     fi
-
 
     npm install ${npmglobals} -g
 }
