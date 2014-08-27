@@ -19,6 +19,9 @@ function status() {
 }
 
 function start() {
+    echo "Stopping maintenance web server."
+    kill -9 `cat ${OPENSHIFT_DATA_DIR}/maintenance.pid`
+
     logf="$OPENSHIFT_NODEJS_LOG_DIR/node.log"
     if [ -f "${OPENSHIFT_REPO_DIR}package.json" ]; then
         cd ${OPENSHIFT_REPO_DIR}
@@ -28,6 +31,10 @@ function start() {
 }
 
 function stop() {
+    client_message "Starting maintenance web server."
+    nohup python ${OPENSHIFT_NODEDIY_DIR}/maintenance/maintenance.py > /tmp/nohup.out 2>&1&
+    echo $! > ${OPENSHIFT_DATA_DIR}/maintenance.pid
+
     if [ is_node_running ]; then
       client_message "Stopping node"
       killall node
