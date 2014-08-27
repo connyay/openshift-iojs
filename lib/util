@@ -2,18 +2,21 @@
 
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
-function print_msg {
-    client_message "-----> $*"
-}
-
 function print_spaced_msg {
     client_message ""
-    print_msg "$*"
+    client_message "-----> $*"
+    client_message ""
+}
+
+function print_spaced_heading {
+    client_message ""
+    client_message ""
+    client_message "    ******** $* ********"
     client_message ""
 }
 
 function install {
-    print_spaced_msg "Node DIY Installing"
+    print_spaced_heading "Node DIY Installing"
     requested_ver=${OPENSHIFT_NODEJS_VERSION}
 
     if ! [ -z "$OPENSHIFT_NODEJS_CUSTOM_VERSION" ]; then
