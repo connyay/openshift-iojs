@@ -3,7 +3,9 @@
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
 function install {
-    client_message "\n\nNode DIY Installing."
+    client_message ""
+    client_message "Node DIY Installing."
+    client_message ""
     requested_ver=${OPENSHIFT_NODEJS_VERSION}
 
     if ! [ -z "$OPENSHIFT_NODEJS_CUSTOM_VERSION" ]; then
