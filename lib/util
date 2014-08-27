@@ -2,10 +2,18 @@
 
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
+function print_msg {
+    client_message "-----> $*"
+}
+
+function print_spaced_msg {
+    client_message ""
+    print_msg "$*"
+    client_message ""
+}
+
 function install {
-    client_message ""
-    client_message "Node DIY Installing."
-    client_message ""
+    print_spaced_msg "Node DIY Installing"
     requested_ver=${OPENSHIFT_NODEJS_VERSION}
 
     if ! [ -z "$OPENSHIFT_NODEJS_CUSTOM_VERSION" ]; then
@@ -27,7 +35,7 @@ function install {
     #  Download and extract the gzipped tarball.
     dldir="$OPENSHIFT_TMP_DIR/downloads"
     mkdir -p "$dldir"
-    client_message "Downloading Node.js v${ver}"
+    client_message "Downloading Node.js v${ver}..."
 
     if ! curl -L -o "$dldir/$zfile" "$zlink"; then
       echo "  - ERROR  -- download failed for $zlink"
@@ -43,16 +51,16 @@ function install {
     rm -rf ${OPENSHIFT_NODEJS_PATH}/*
     mv -f tmp/* ${OPENSHIFT_NODEJS_PATH}
 
-    client_message "Finished installing Node.js v${ver}"
+    print_spaced_msg "Finished installing Node.js v${ver}"
 
     npmglobals=${OPENSHIFT_NPM_GLOBALS}
     if ! [ -z "$OPENSHIFT_NPM_CUSTOM_GLOBALS" ]; then
         npmglobals="${OPENSHIFT_NPM_CUSTOM_GLOBALS}"
     fi
-    client_message "Installing ${npmglobals} globally."
+    client_message "Installing ${npmglobals} globally..."
     npm install ${npmglobals} -g
 
-    client_message "Installed global npm modules successfully"
+    print_spaced_msg "Installed global npm modules successfully"
 
     path_append
 }
