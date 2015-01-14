@@ -1,0 +1,113 @@
+#!/bin/bash
+
+function is_node_running {
+    if [ -f ${OPENSHIFT_NODEDIY_DIR}server.pid ]; then
+        return 0
+    fi
+    ps axco command | grep -w '^node$' > /dev/null
+}
+
+function pidlist() {
+    # Recursive function to find pids children and grand children
+    local thispid=$1
+    local allpids=
+    local childpids=
+    childpids=$(ps --ppid $thispid -o pid h)
+    for pid in $childpids
+    do
+      allpids="$(pidlist $pid) $allpids"
+    done
+    echo "$thispid $allpids"
+}
+
+function status() {
+    client_message "Status:"
+    node_ver=$(node -v)
+    client_message "Node version: ${node_ver}"
+    npm_ver=$(npm -v)
+    client_message "NPM version: ${npm_ver}"
+
+    if [ is_node_running ]; then
+      client_message "Node is running."
+    else
+      client_message "Node is not running."
+    fi
+}
+
+function start() {
+
+    logf="${OPENSHIFT_IOJS_LOG_DIR}node.log"
+    touch $logf
+    if [ -f "${OPENSHIFT_REPO_DIR}package.json" ]; then
+        cd ${OPENSHIFT_REPO_DIR}
+        client_message "Starting node using npm start"
+        nohup npm start >> $logf 2>&1 &
+        npm_pid=$!;
+        sleep 3
+        echo `pidlist $npm_pid` > ${OPENSHIFT_IOJS_DIR}server.pid
+    else
+        client_message "npm start requires a package.json file, and we could not find one."
+    fi
+}
+
+function stop() {
+    if [ is_node_running ]; then
+      client_message "Stopping node"
+      if [ -f "${OPENSHIFT_IOJS_DIR}server.pid" ]; then
+          kill -9 `cat ${OPENSHIFT_IOJS_DIR}server.pid` > /dev/null 2>&1
+          rm -f ${OPENSHIFT_IOJS_DIR}server.pid
+      fi
+    else
+      client_message "Could not stop node... Is it running?"
+    fi
+
+    true
+}
+
+function restart() {
+    stop
+    # Give node two seconds to stop
+    sleep 2
+    start
+}
+
+function reload() {
+    source "${OPENSHIFT_NODEDIY_DIR}lib/util"
+    client_message "Reloading cartridge"
+    install
+    client_message "Restarting cartridge"
+    restart
+}
+
+function tidy() {
+  client_message "Emptying log dir: $OPENSHIFT_IOJS_LOG_DIR"
+  shopt -s dotglob
+  rm -rf ${OPENSHIFT_IOJS_LOG_DIR}*
+  rm -rf ${OPENSHIFT_IOJS_DIR}tmp/*
+  touch ${OPENSHIFT_IOJS_LOG_DIR}node.log
+}
+
+#
+#  main():
+#
+
+# Ensure arguments.
+if ! [ $# -eq 1 ]; then
+    echo "Usage: $0 [start|restart|graceful|graceful-stop|stop|status]"
+    exit 1
+fi
+
+# Source utility functions.
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+# Handle commands.
+case "$1" in
+    start)               start       ;;
+    restart|graceful)    restart     ;;
+    graceful-stop|stop)  stop        ;;
+    status)              status      ;;
+    reload)              reload      ;;
+    tidy)                tidy        ;;
+    *) exit 0;
+esac
+
