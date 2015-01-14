@@ -15,15 +15,14 @@ function print_spaced_heading {
     client_message ""
 }
 
-function install {
-    npmglobals=${OPENSHIFT_NPM_GLOBALS}
-    if ! [ -z "$OPENSHIFT_NPM_CUSTOM_GLOBALS" ]; then
-        npmglobals="${OPENSHIFT_NPM_CUSTOM_GLOBALS}"
-    fi
-    client_message "Installing ${npmglobals} globally..."
-    npm install ${npmglobals} -g
+npmglobals=${OPENSHIFT_NPM_GLOBALS}
+if ! [ -z "$OPENSHIFT_NPM_CUSTOM_GLOBALS" ]; then
+    npmglobals="${OPENSHIFT_NPM_CUSTOM_GLOBALS}"
+fi
+client_message "Installing ${npmglobals} globally..."
+npm install ${npmglobals} -g
 
-    print_spaced_msg "Installed global npm modules successfully"
+print_spaced_msg "Installed global npm modules successfully"
 
-    path_append
-}
+path_append
+
