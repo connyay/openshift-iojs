@@ -1,4 +1,6 @@
-# Openshift io.js
+# [io.js](https://iojs.org/) cartridge for [OpenShift](https://www.openshift.com/)
+
+## [io.js](https://iojs.org/) is still in beta stability. Please use this at your own risk!
 
 ## Usage
 
