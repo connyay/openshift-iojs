@@ -22,6 +22,10 @@ What this cartridge does out of the box
 3. Allows the user to manually install required dependencies (in a `build` [action_hook](http://openshift.github.io/documentation/oo_user_guide.html#action-hooks)). An example of this can be found [here](template/.openshift/action_hooks/build)
 4. Runs `npm start` if `package.json` is found in repo directory (log is written to `$OPENSHIFT_IOJS_LOG_DIR`)
 
+Note
+---
+For now I just dropped the contents of the iojs-v1.0.1.tar.xz [here](bin/iojs). Once io.js stabalizes I will move to resolving the latest stable and downloading on the gear.
+
 Thanks!
 ---
 These repos helped out a ton while developing this cartridge.
