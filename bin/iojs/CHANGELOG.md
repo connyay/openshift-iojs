@@ -1,6 +1,156 @@
 # io.js ChangeLog
 
-## 2015-01-14, Version 1.0.1
+## 2015-01-24, Version 1.0.4, @rvagg
+
+### Notable changes
+
+* npm upgrade to 2.3.0 fixes Windows "uid is undefined" errors
+* crypto.pseudoRandomBytes() is now an alias for crypto.randomBytes()
+  and will block if there is insufficient entropy to produce secure
+  values. See https://github.com/iojs/io.js/commit/e5e5980 for details.
+* Patch for V8 to properly detect ARMv6; binaries now work again on
+  ARMv6 (Raspberry Pi etc.)
+* Minor V8 upgrade from 4.1.0.7 to 4.1.0.12
+* 'punycode' core module bumped from stability level 2-Unstable,
+  to 3-Stable
+* Added new collaborators:
+  - Thorsten Lorenz (@thlorenz)
+  - Stephen Belanger (@qard)
+  - Jeremiah Senkpiel (@fishrock123)
+  - Evan Lucas (@evanlucas)
+  - Brendan Ashworth (@brendanashworth)
+
+### Commits
+
+* bb766d2 - doc: update "net" section in node to io.js changes (Andres Suarez)
+* 73ddaa6 - tools: remove old updateAuthors.awk script (Rod Vagg)
+* 6230bf9 - doc: update AUTHORS list (Rod Vagg)
+* 33186fa - doc: adds brendanashworth as collaborator (Brendan Ashworth)
+* 8f9502a - doc: add evanlucas to collaborators (Evan Lucas)
+* 35a4f11 - doc: alphabetize all.markdown (Brendan Ashworth)
+* a0831c5 - doc: add Fishrock123 to collaborators (Fishrock123)
+* 5412487 - doc: add qard to collaborators (Stephen Belanger)
+* 8b55048 - deps: make node-gyp work again on windows (Bert Belder)
+* 82227f3 - deps: make node-gyp fetch tarballs from iojs.org (Ben Noordhuis)
+* f5b35db - deps: upgrade npm to 2.3.0 (Forrest L Norvell)
+* f3fed51 - doc: adding thlorenz to list of collaborators (Thorsten Lorenz)
+* 8de89ec - lib: move default address logic to `net._listen2` (Vladimir Kurchatkin)
+* 3143d73 - test: delete parallel/test-process-active-wraps (Ben Noordhuis)
+* 4f95b5d - test: fix parallel/test-http-destroyed-socket-write2 (Ben Noordhuis)
+* 5ba307a - test: fix parallel/test-dgram-error-message-address (Ben Noordhuis)
+* f4c536b - debugger: don't override module binding (Vladimir Kurchatkin)
+* 40ffed8 - stream: use nop as write() callback if omitted (cjihrig)
+* df0d790 - doc: dns.lookupService has wrong header level (Icer Liang)
+* 8b1db9c - doc: note in docs about missing interfaces (Todd Kennedy)
+* 2928ac6 - doc: bump punycode api stability to 'stable' (Ben Noordhuis)
+* 328e67b - doc: add TC meeting 2015-01-21 minutes (Rod Vagg)
+* e5e5980 - lib,src: make pseudoRandomBytes alias randomBytes (Calvin Metcalf)
+* c6cd460 - configure: remove unused arm_neon variable (Ben Noordhuis)
+* 7d9d756 - configure: disable vfpv3 on armv6 (Ben Noordhuis)
+* 297cadb - deps: fix v8 armv6 run-time detection (Ben Noordhuis)
+* d481bb6 - doc: more explicit crypto.pseudoRandomBytes docs (Calvin Metcalf)
+* 7d46247 - src: s/node/io.js/ in `iojs --help` message (Ben Noordhuis)
+* 069c0df - deps: upgrade v8 to 4.1.0.12 (Ben Noordhuis)
+* ada2a43 - doc: add TC meeting 2015-01-13 minutes (Rod Vagg)
+* 60402b9 - docs: remove incorrect entry from changelog (Bert Belder)
+* 8b98096 - fs: make fs.access() flags read only (Jackson Tian)
+* 804e7aa - lib: use const to define constants (cjihrig)
+* 803883b - v8: fix template literal NULL pointer deref (Ben Noordhuis)
+* 5435cf2 - v8: optimize `getHeapStatistics` (Vladimir Kurchatkin)
+* 5d01463 - benchmark: print score to five decimal places (Yosuke Furukawa)
+* 752585d - src: silence clang warnings (Trevor Norris)
+* 22e1aea - src: set node_is_initialized in node::Init (Cheng Zhao)
+* 668420d - src: clean up unused macros in node_file.cc (Ben Noordhuis)
+* 52f624e - src: rename ASSERT macros in node_crypto.cc (Ben Noordhuis)
+* e95cfe1 - src: add ASSERT_EQ style macros (Ben Noordhuis)
+* ee9cd00 - lib: fix TypeError with EventEmitter#on() abuse (Ben Noordhuis)
+* 77d6807 - test: fix event-emitter-get-max-listeners style (Ben Noordhuis)
+* 767ee73 - test: strip copyright boilerplate (Ben Noordhuis)
+* 86eda17 - fs: define constants with const (cjihrig)
+
+## 2015-01-20, Version 1.0.3, @rvagg
+
+### Notable changes
+
+* V8 upgrade from 3.31 to 4.1, this is not a major upgrade, the version number "4.1" signifies tracking towards Chrome 41. The 3.31 branch is now not tracking towards a stable release.
+* Re-enable Windows XP / 2003 support
+* npm upgrade to 2.2.0
+* Improved FreeBSD support
+
+### Known issues
+
+* ARMv6 builds still not working, there is a hold-up in V8 on this, issue #283
+* Template strings can cause segfaults in V8 4.1, https://codereview.chromium.org/857433004, also issue #333
+
+### Commits
+
+* 9419e1f - src: fix inconsistency between a check and error (toastynerd)
+* 03ee4d8 - fs: add error code on null byte paths (cjihrig)
+* e2558f0 - net: fix error details in connect() (cjihrig)
+* 4af5746 - win,build: remove duplicate definition (Bert Belder)
+* e8d0850 - win: bring back xp/2k3 support (Bert Belder)
+* 4dd22b9 - cluster: avoid race enabling debugger in worker (Timothy J Fontaine)
+* 6b91c78 - test: reland changes from 11c1bae (Ben Noordhuis)
+* 992a1e7 - test: debug-signal-cluster should not be racey (Timothy J Fontaine)
+* cdf0df1 - test: temporarily back out changes from 11c1bae (Ben Noordhuis)
+* 1ea607c - test: move sequential/test-debug-port-from-cmdline (Ben Noordhuis)
+* 2f33e00 - test: fix test-debug-port-from-cmdline.js (Julien Gilli)
+* b7365c1 - repl: make REPL support multiline template literals (Xiaowei Li)
+* 2253d30 - build: remove unused variable (Johan Bergström)
+* ab04a43 - doc: add optional sudo to make install in README (Glen Keane)
+* 1b1cd1c - build: shorten configurate script print on stdout (Roman Reiss)
+* d566ded - deps: fix V8 debugger bugs (Jay Jaeho Lee)
+* 6f36630 - doc: fix util.isBuffer examples (Thomas Jensen)
+* 3abfb56 - benchmark: fix tcp bench after internal api change (Yosuke Furukawa)
+* 50177fb - benchmark: stop v8 benchmark clobbering RegExp (Ben Noordhuis)
+* 1952219 - deps: make node-gyp work again on windows (Bert Belder)
+* a28de9b - deps: make node-gyp fetch tarballs from iojs.org (Ben Noordhuis)
+* 9dc8f59 - deps: upgrade npm to 2.2.0 (Forrest L Norvell)
+* e8ad773 - src: remove --noharmony_classes again (Ben Noordhuis)
+* 334020e - deps: fix v8 build on FreeBSD (Fedor Indutny)
+* 5e7ebc7 - deps: upgrade v8 to 4.1.0.7 (Ben Noordhuis)
+* ea7750b - benchmark: add filter option for benchmark (Yosuke Furukawa)
+* 4764eef - doc: fixed punctuation (Brenard Cubacub)
+* de224d6 - configure: remove --ninja switch (Ben Noordhuis)
+* 48774ec0 - configure: print warning for old compilers (Ben Noordhuis)
+* daf9562 - doc: change to iojs from node in the usage message (Jongyeol Choi)
+* 3fde649 - build: add tools/gflags to PYTHONPATH (Shigeki Ohtsu)
+* 8b22df1 - doc: add python-gflags LICENSE block (Shigeki Ohtsu)
+* 6242229 - tools: add python-gflags module (Shigeki Ohtsu)
+
+## 2015-01-16, Version 1.0.2, @rvagg
+
+### Notable changes
+
+* Windows installer fixes
+* Bundled node-gyp fixes for Windows
+* http_parser v2.4.1 upgrade
+* libuv v1.2.1 upgrade
+
+### Commits
+
+* 265cb76 - build: add new installer config for OS X (Rod Vagg)
+* 8cf6079 - doc: update AUTHORS list (Rod Vagg)
+* c80a944 - doc: Add http keepalive behavior to CHANGELOG.md (Isaac Z. Schlueter)
+* 9b81c3e - doc: fix author attribution (Tom Hughes)
+* fd30eb2 - src: fix jslint errors (Yosuke Furukawa)
+* 946eabd - tools: update closure linter to 2.3.17 (Yosuke Furukawa)
+* 9e62ae4 - _debug_agent: use `readableObjectMode` option (Vladimir Kurchatkin)
+* eec4c81 - doc: fix formatting in LICENSE for RTF generation (Rod Vagg)
+* e789103 - doc: fix 404s for syntax highlighting js (Phil Hughes)
+* ca039b4 - src: define AI_V4MAPPED for OpenBSD (Aaron Bieber)
+* 753fcaa - doc: extend example of http.request by end event (Michal Tehnik)
+* 8440cac - src: fix documentation url in help message (Shigeki Ohtsu)
+* 24def66 - win,msi: warn that older io.js needs manual uninstall (Bert Belder)
+* 59d9361 - win,msi: change UpgradeCode (Bert Belder)
+* 5de334c - deps: make node-gyp work again on windows (Bert Belder)
+* 07bd05b - deps: update libuv to 1.2.1 (Saúl Ibarra Corretgé)
+* e177377 - doc: mention io.js alongside Node in Punycode docs (Mathias Bynens)
+* 598efcb - deps: update http_parser to 2.4.1 (Fedor Indutny)
+* 3dd7ebb - doc: update cluster entry in CHANGELOG (Ben Noordhuis)
+* 0c5de1f - doc: fix double smalloc example (Mathias Buus)
+
+## 2015-01-14, Version 1.0.1, @rvagg
 
 Rebuild due to stale build slave git reflogs for 1.0.0 release
 
@@ -58,9 +208,9 @@ https://iojs.org/api/console.html
 
 https://iojs.org/api/cluster.html
 
-(**DETAILS TO BE ADDED HERE**)
-
 - Updated `cluster` to use round-robin load balancing by default on non-Windows platforms. The scheduling policy is configurable however.
+- `--debug` has been made cluster-aware.
+- Many bug fixes.
 
 ### crypto
 
@@ -115,8 +265,15 @@ https://iojs.org/api/http.html
 - Added `request.flush` method.
 - Added `response.getHeader('header')` method that may be used before headers are flushed.
 - Added `response.statusMessage` property.
-- Fixed Keep-Alive behavior (**DETAILS TO BE ADDED**)
+- Added Client Keep-Alive behavior.  Set `keepAlive:true` in request options to reuse connections indefinitely.
+- Added `rawHeaders` and `rawTrailers` members on incoming message.
 - Removed default chunked encoding on `DELETE` and `OPTIONS`.
+
+### net
+
+https://iojs.org/api/net.html
+
+- Changed `net.Server.listen` such that, when the bind address is omitted, IPv6 is tried first, and IPv4 is used as a fallback.
 
 ### os
 
@@ -223,7 +380,6 @@ https://iojs.org/api/tls.html
 
 https://iojs.org/api/url.html
 
-- Added support for `path` option in `url.format`, which encompasses `pathname`, `query`, and `search`.
 - Improved escaping of certain characters.
 - Improved parsing speed.
 

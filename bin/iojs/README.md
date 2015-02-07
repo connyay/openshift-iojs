@@ -15,7 +15,7 @@ compatible with the npm ecosystem that has been built to date for Node.js.
 The official name is **io.js**, which should never be capitalized,
 especially not at the start of a sentence, unless it is being
 displayed in a location that is customarily all-caps (such as
-the title of man pages.)
+the title of man pages).
 
 ## To build:
 
@@ -32,7 +32,7 @@ Prerequisites:
 ```text
 $ ./configure
 $ make
-$ make install
+$ [sudo] make install
 ```
 
 If your Python binary is in a non-standard location or has a
@@ -42,7 +42,7 @@ non-standard name, run the following instead:
 $ export PYTHON=/path/to/python
 $ $PYTHON ./configure
 $ make
-$ make install
+$ [sudo] make install
 ```
 
 To run the tests:
@@ -60,7 +60,7 @@ $ make doc
 To read the documentation:
 
 ```text
-$ man doc/node.1
+$ man doc/iojs.1
 ```
 
 ### Windows
@@ -209,6 +209,11 @@ information about the governance of the io.js project, see
 * **Colin Ihrig** ([@cjihrig](https://github.com/cjihrig)) &lt;cjihrig@gmail.com&gt; (Technical Committee)
 * **Mikeal Rogers** ([@mikeal](https://github.com/mikeal)) &lt;mikeal.rogers@gmail.com&gt;
 * **Rod Vagg** ([@rvagg](https://github.com/rvagg)) &lt;rod@vagg.org&gt;
+* **Thorsten Lorenz** ([@thlorenz](https://github.com/thlorenz)) &lt;thlorenz@gmx.de&gt;
+* **Stephen Belanger** ([@qard](https://github.com/qard)) &lt;admin@stephenbelanger.com&gt;
+* **Jeremiah Senkpiel** ([@fishrock123](https://github.com/fishrock123)) &lt;fishrock123@rocketmail.com&gt;
+* **Evan Lucas** ([@evanlucas](https://github.com/evanlucas)) &lt;evanlucas@me.com&gt;
+* **Brendan Ashworth** ([@brendanashworth](https://github.com/brendanashworth)) &lt;brendan.ashworth@me.com&gt;
 
 Collaborators follow the [COLLABORATOR_GUIDE.md](./COLLABORATOR_GUIDE.md) in
 maintaining the io.js project.

@@ -8,8 +8,8 @@
 
 What this cartridge provides out of the box
 ---
-1. **io.js** ([latest stable](http://semver.io/iojs/stable) currently 1.0.1)
-2. **npm** (latest stable currently 2.1.18)
+1. **io.js** ([latest stable](http://semver.io/iojs/stable) currently 1.0.4)
+2. **npm** (latest stable currently 2.3.0)
 3. **grunt**
 4. **bower**
 

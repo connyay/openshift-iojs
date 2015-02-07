@@ -21,7 +21,7 @@ Also, it can&#39;t start with a dot or an underscore.</li>
 <li>The name will probably be passed as an argument to require(), so it should
 be something short, but also reasonably descriptive.</li>
 <li>You may want to check the npm registry to see if there&#39;s something by that name
-already, before you get too attached to it.  <a href="http://registry.npmjs.org/">http://registry.npmjs.org/</a></li>
+already, before you get too attached to it. <a href="https://www.npmjs.com/">https://www.npmjs.com/</a></li>
 </ul>
 <p>A name can be optionally prefixed by a scope, e.g. <code>@myorg/mypackage</code>. See
 <code><a href="../misc/npm-scope.html">npm-scope(7)</a></code> for more detail.</p>
@@ -104,10 +104,10 @@ feature to install the &quot;npm&quot; executable.)</p>
 command name to local file name. On install, npm will symlink that file into
 <code>prefix/bin</code> for global installs, or <code>./node_modules/.bin/</code> for local
 installs.</p>
-<p>For example, npm has this:</p>
-<pre><code>{ &quot;bin&quot; : { &quot;npm&quot; : &quot;./cli.js&quot; } }
-</code></pre><p>So, when you install npm, it&#39;ll create a symlink from the <code>cli.js</code> script to
-<code>/usr/local/bin/npm</code>.</p>
+<p>For example, myapp could have this:</p>
+<pre><code>{ &quot;bin&quot; : { &quot;myapp&quot; : &quot;./cli.js&quot; } }
+</code></pre><p>So, when you install myapp, it&#39;ll create a symlink from the <code>cli.js</code> script to
+<code>/usr/local/bin/myapp</code>.</p>
 <p>If you have a single executable, and its name should be the name
 of the package, then you can just supply it as a string.  For example:</p>
 <pre><code>{ &quot;name&quot;: &quot;my-program&quot;

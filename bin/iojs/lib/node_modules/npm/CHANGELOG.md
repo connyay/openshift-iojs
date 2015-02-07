@@ -1,3 +1,94 @@
+### v2.3.0 (2015-01-15):
+
+#### REGISTRY 2: OH MY STARS! WHO AM I?
+
+* [`e662a60`](https://github.com/npm/npm/commit/e662a60e2f9a542effd8e72279d4622fe514415e)
+  The new `whoami` endpoint might not return a value.
+  ([@othiym23](https://github.com/othiym23))
+* [`c2cccd4`](https://github.com/npm/npm/commit/c2cccd4bbc65885239ed646eb510155f7b8af13d)
+  `npm-registry-client@5.0.0`: Includes the following fine changes
+  ([@othiym23](https://github.com/othiym23)):
+  * [`ba6b73e`](https://github.com/npm/npm-registry-client/commit/ba6b73e351027246c228622014e4441412409bad)
+    [#92](https://github.com/npm/npm-registry-client/issues/92) BREAKING CHANGE:
+    Move `/whoami` endpoint out of the package namespace (to `/-/whoami`).
+    ([@othiym23](https://github.com/othiym23))
+  * [`3b174b7`](https://github.com/npm/npm-registry-client/commit/3b174b75c0c9ea77e298e6bb664fb499824ecc7c)
+    [#93](https://github.com/npm/npm-registry-client/issues/93) Registries based
+    on token-based auth can now offer starring.
+    ([@bcoe](https://github.com/bcoe))
+  * [`4701a29`](https://github.com/npm/npm-registry-client/commit/4701a29bcda41bc14aa91f361dd0d576e24677d7)
+    Fix HTTP[S] connection keep-alive on Node 0.11 / io.js 1.0.
+    ([@fengmk2](https://github.com/fengmk2))
+
+#### BETTER REGISTRY METADATA CACHING
+
+* [`98e1e10`](https://github.com/npm/npm/commit/98e1e1080df1f2cab16ed68035603950ea3d2d48)
+  [#6791](https://github.com/npm/npm/issues/6791) Add caching based on
+  Last-Modified / If-Modified-Since headers. Includes this
+  `npm-registry-client@5.0.0` change ([@lxe](https://github.com/lxe)):
+  * [`07bc335`](https://github.com/npm/npm-registry-client/commit/07bc33502b93554cd7539bfcce37d6e2d5404cd0)
+    [#86](https://github.com/npm/npm-registry-client/issues/86) Add Last-Modified
+    / If-Modified-Since cache header handling. ([@lxe](https://github.com/lxe))
+
+#### HOW MUCH IS THAT WINDOWS IN THE DOGGY?
+
+* [`706d49a`](https://github.com/npm/npm/commit/706d49ab45521360fce1a68779b8de899015d8c2)
+  [#7107](https://github.com/npm/npm/issues/7107) `getCacheStat` passes a stub
+  stat on Windows. ([@rmg](https://github.com/rmg))
+* [`5fce278`](https://github.com/npm/npm/commit/5fce278a688a1cb79183e012bde40b089c2e97a4)
+  [#5267](https://github.com/npm/npm/issues/5267) Use `%COMSPEC%` when set on
+  Windows. ([@edmorley](https://github.com/edmorley))
+* [`cc2e099`](https://github.com/npm/npm/commit/cc2e09912ce2f91567c485422e4e797c4deb9842)
+  [#7083](https://github.com/npm/npm/issues/7083) Ensure Git cache prefix
+  exists before repo clone on Windows.
+  ([@othiym23](https://github.com/othiym23))
+
+#### THRILLING BUG FIXES
+
+* [`c6fb430`](https://github.com/npm/npm/commit/c6fb430e55672b3caf87d25cbd2aeeebc449e2f2)
+  [#4197](https://github.com/npm/npm/issues/4197) Report `umask` as a 0-padded
+  octal literal. ([@smikes](https://github.com/smikes))
+* [`209713e`](https://github.com/npm/npm/commit/209713ebd4b77da11ce27d90c3346f78d760ba52)
+  [#4197](https://github.com/npm/npm/issues/4197) `umask@1.1.0`: Properly
+  handle `umask`s (i.e. not decimal numbers).
+  ([@smikes](https://github.com/smikes))
+* [`9eac0a1`](https://github.com/npm/npm/commit/9eac0a14488c5979ebde4c17881c8cd74f395069)
+  Make the example for bin links non-destructive.
+  ([@KevinSheedy](https://github.com/KevinSheedy))
+* [`6338bcf`](https://github.com/npm/npm/commit/6338bcfcd9cd1b0cc48b051dae764dc436ab5332)
+  `glob@4.3.5`: " -> ', for some reason. ([@isaacs](https://github.com/isaacs))
+
+### v2.2.0 (2015-01-08):
+
+* [`88c531d`](https://github.com/npm/npm/commit/88c531d1c0b3aced8f2a09632db01b5635e7226a)
+  [#7056](https://github.com/npm/npm/issues/7056) version doesn't need a
+  package.json. ([@othiym23](https://github.com/othiym23))
+* [`2656c19`](https://github.com/npm/npm/commit/2656c19f6b915c3173acc3b6f184cc321563da5f)
+  [#7095](https://github.com/npm/npm/issues/7095) Link to npm website instead
+  of registry. ([@konklone](https://github.com/konklone))
+* [`c76b801`](https://github.com/npm/npm/commit/c76b8013bf1758587565822626171b76cb465c9e)
+  [#7067](https://github.com/npm/npm/issues/7067) Obfuscate secrets, including
+  nerfed URLs. ([@smikes](https://github.com/smikes))
+* [`17f66ce`](https://github.com/npm/npm/commit/17f66ceb1bd421084e4ae82a6b66634a6e272929)
+  [#6849](https://github.com/npm/npm/issues/6849) Explain the tag workflow more
+  clearly. ([@smikes](https://github.com/smikes))
+* [`e309df6`](https://github.com/npm/npm/commit/e309df642de33d10d6dffadaa8a5d214a924d0dc)
+  [#7096](https://github.com/npm/npm/issues/7096) Really, `npm update -g` is
+  almost always a terrible idea. ([@smikes](https://github.com/smikes))
+* [`acf287d`](https://github.com/npm/npm/commit/acf287d2547c8a0a8871652c164019261b666d55)
+  [#6999](https://github.com/npm/npm/issues/6999) `npm run-script env`: add a
+  new default script that will print out environment values.
+  ([@gcb](https://github.com/gcb))
+* [`560c009`](https://github.com/npm/npm/commit/560c00945d4dec926cd29193e336f137c7f3f951)
+  [#6745](https://github.com/npm/npm/issues/6745) Document `npm update --dev`.
+  ([@smikes](https://github.com/smikes))
+* [`226a677`](https://github.com/npm/npm/commit/226a6776a1a9e28570485623b8adc2ec4b041335)
+  [#7046](https://github.com/npm/npm/issues/7046) We have never been the Node
+  package manager. ([@linclark](https://github.com/linclark))
+* [`38eef22`](https://github.com/npm/npm/commit/38eef2248f03bb8ab04cae1833e2a228fb887f3c)
+  `npm-install-checks@1.0.5`: Compatibility with npmlog@^1.
+  ([@iarna](https://github.com/iarna))
+
 ### v2.1.18 (2015-01-01):
 
 * [`bf8640b`](https://github.com/npm/npm/commit/bf8640b0395b5dff71260a0cede7efc699a7bcf5)
