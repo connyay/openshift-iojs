@@ -24,7 +24,7 @@ What this cartridge does out of the box
 
 Note
 ---
-For now I just dropped the contents of the iojs-v1.0.1.tar.xz [here](bin/iojs). Once io.js stabalizes I will move to resolving the latest stable and downloading on the gear.
+For now I just dropped the contents of the iojs-v1.0.4.tar.xz [here](bin/iojs). Once io.js stabalizes I will move to resolving the latest stable and downloading on the gear.
 
 Thanks!
 ---
