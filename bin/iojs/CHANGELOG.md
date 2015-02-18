@@ -1,5 +1,188 @@
 # io.js ChangeLog
 
+## 2015-02-10, Version 1.2.0, @rvagg
+
+### Notable changes
+
+* **stream**:
+  - Simpler stream construction, see [readable-stream/issues#102](https://github.com/iojs/readable-stream/issues/102) for details. This extends the streams base objects to make their constructors accept default implementation methods, reducing the boilerplate required to implement custom streams. An updated version of readable-stream will eventually be released to match this change in core. (@sonewman)
+* **dns**:
+  - `lookup()` now supports an `'all'` boolean option, default to `false` but when turned on will cause the method to return an array of *all* resolved names for an address, see, [#744](https://github.com/iojs/io.js/pull/744) (@silverwind)
+* **assert**:
+  - Remove `prototype` property comparison in `deepEqual()`, considered a bugfix, see [#636](https://github.com/iojs/io.js/pull/636) (@vkurchatkin)
+  - Introduce a `deepStrictEqual()` method to mirror `deepEqual()` but performs strict equality checks on primitives, see [#639](https://github.com/iojs/io.js/pull/639) (@vkurchatkin)
+* **tracing**:
+  - Add [LTTng](http://lttng.org/) (Linux Trace Toolkit Next Generation) when compiled with the  `--with-lttng` option. Trace points match those available for DTrace and ETW. [#702](https://github.com/iojs/io.js/pull/702) (@thekemkid)
+* **docs**:
+  - Lots of doc updates, see individual commits
+  - New **Errors** page discussing JavaScript errors, V8 specifics, and io.js specific error details. (@chrisdickinson)
+* **npm** upgrade to 2.5.1, short changelog:
+  - [npm/0e8d473](https://github.com/npm/npm/commit/0e8d4736a1cbdda41ae8eba8a02c7ff7ce80c2ff) [#7281](https://github.com/npm/npm/issues/7281) `npm-registry-mock@1.0.0`: Clean up API, set `connection: close`, which makes tests pass on io.js 1.1.x.
+  ([@robertkowalski](https://github.com/robertkowalski))
+  - [npm/f9313a0](https://github.com/npm/npm/commit/f9313a066c9889a0ee898d8a35676e40b8101e7f)
+  [#7226](https://github.com/npm/npm/issues/7226) Ensure that all request
+  settings are copied onto the agent.
+  ([@othiym23](https://github.com/othiym23))
+   - [npm/fec4c96](https://github.com/npm/npm/commit/fec4c967ee235030bf31393e8605e9e2811f4a39)
+  Allow `--no-proxy` to override `HTTP_PROXY` setting in environment.
+  ([@othiym23](https://github.com/othiym23))
+  - [npm/9d61e96](https://github.com/npm/npm/commit/9d61e96fb1f48687a85c211e4e0cd44c7f95a38e)
+  `npm outdated --long` now includes a column showing the type of dependency.
+  ([@watilde](https://github.com/watilde))
+* **libuv** upgrade to 1.4.0, see [libuv ChangeLog](https://github.com/libuv/libuv/blob/v1.x/ChangeLog)
+* Add new collaborators:
+  - Aleksey Smolenchuk (@lxe)
+  - Shigeki Ohtsu (@shigeki)
+
+### Known issues
+
+* Surrogate pair in REPL can freeze terminal [#690](https://github.com/iojs/io.js/issues/690)
+* Not possible to build io.js as a static library [#686](https://github.com/iojs/io.js/issues/686)
+* `process.send()` is not synchronous as the docs suggest, a regression introduced in 1.0.2, see [#760](https://github.com/iojs/io.js/issues/760) and fix in [#774](https://github.com/iojs/io.js/issues/774) that should appear in the next patch release.
+
+### Commits
+
+* [7e2235a] - doc: add error documentation (Chris Dickinson)
+* [d832be4] - doc: update AUTHORS list (Rod Vagg)
+* [aea9b89] - doc: add shigeki as collaborator (Shigeki Ohtsu)
+* [e653080] - fs: improve `readFile` performance (Vladimir Kurchatkin)
+* [9681fca] - deps: update libuv to 1.4.0 (Saúl Ibarra Corretgé)
+* [5e825d1] - tracing: add lttng support for tracing on linux (Glen Keane)
+* [b677b84] - events: optimize various functions (Brian White)
+* [c86e383] - test: fix test failure with shared openssl (Shigeki Ohtsu)
+* [1151016] - doc: fix typo in crypto (Haoliang Gao)
+* [7c56868] - doc: change the order of crypto.publicDecrypt (Haoliang Gao)
+* [3f473ef] - assert: introduce `deepStrictEqual` (Vladimir Kurchatkin)
+* [828d19a] - doc: fix dns.lookup options example (Roman Reiss)
+* [90d2b35] - doc: update antiquated process.versions output (Ben Noordhuis)
+* [789bbb9] - doc: update node.js references in api docs (Ben Noordhuis)
+* [c22e5ac] - https: simpler argument check (Michaël Zasso)
+* [b9d3928] - util: simplify `isPrimitive` (Vladimir Kurchatkin)
+* [2c3121c] - benchmark: bump eventemitter number of iterations (Ben Noordhuis)
+* [633a990] - dns: allow dns.lookup() to return all addresses (Roman Reiss)
+* [1cd1d7a] - buffer: don't compare same buffers (Vladimir Kurchatkin)
+* [847b9d2] - benchmark: add more EventEmitter benchmarks (Brian White)
+* [96597bc] - doc: add lxe as collaborator (Aleksey Smolenchuk)
+* [7a301e2] - deps: make node-gyp work again on windows (Bert Belder)
+* [b188a34] - deps: make node-gyp fetch tarballs from iojs.org (Ben Noordhuis)
+* [af1bf49] - deps: upgrade npm to 2.5.1 (Forrest L Norvell)
+* [9dc9ec3] - lib: make debug client connect to 127.0.0.1 (Ben Noordhuis)
+* [e7573f9] - assert: don't compare object `prototype` property (Vladimir Kurchatkin)
+* [8d11799] - asyncwrap: fix nullptr parent check (Trevor Norris)
+* [62512bb] - test: accept EPROTONOSUPPORT ipv6 error (Ben Noordhuis)
+* [05f4dff] - asyncwrap: fix constructor condition for early ret (Trevor Norris)
+* [10277d2] - docs: include mention of new crypto methods (Calvin Metcalf)
+* [9a8f186] - child_process: add debug and error details (Zach Bruggeman)
+* [6f7a978] - crypto: clear error on return in TLS methods (Fedor Indutny)
+* [50daee7] - stream: simpler stream constructon (Sam Newman)
+* [e0730ee] - benchmark: allow compare via fine-grained filters (Brian White)
+* [96ffcb9] - src: reduce cpu profiler overhead (Ben Noordhuis)
+* [3e675e4] - benchmark: don't use template strings (Evan Lucas)
+* [8ac8b76] - doc: simplified pure consensus seeking (Mikeal Rogers)
+* [0a54b6a] - doc: update streams wg charter (Chris Dickinson)
+* [b8ead4a] - Adjusting for feedback in the PR. (Mikeal Rogers)
+* [3af7f30] - Initial documentation for working groups. (Mikeal Rogers)
+* [513724e] - doc: add GPG fingerprint for chrisdickinson (Chris Dickinson)
+* [4168198] - doc: add TC meeting 2015-01-28 minutes (Rod Vagg)
+
+## 2015-02-03, Version 1.1.0, @chrisdickinson
+
+### Notable changes
+
+* debug: fix v8 post-mortem debugging.
+* crypto: publicEncrypt now supports password-protected private keys.
+* crypto: ~30% speedup on hashing functions.
+* crypto: added privateEncrypt/publicDecrypt functions.
+* errors
+  - better formatting via util.inspect
+  - more descriptive errors from fs. This necessitated a `NODE_MODULE_VERSION` bump.
+  - more descriptive errors from http.setHeader
+* dep updates:
+  - npm: upgrade to 2.4.1
+  - http-parser: rollback to 2.3.0
+  - libuv: update to 1.3.0
+  - v8: update to 4.1.0.14
+* http.request: inherited properties on options are now respected
+* add iterable interface to buffers (`for (let byte of buffer.values()) { }`)
+* fs: fix fd leak on `fs.createReadStream`. See 497fd72 for details.
+* installer: on Windows, emit WM_SETTINGCHANGE after install to make other running
+  processes aware of the PATH changes.
+* Added new collaborators:
+  - Vladimir Kurchatkin (@vkurchatkin)
+  - Micleușanu Nicu (@micnic)
+
+### Known issues
+
+* Surrogate pair in REPL can freeze terminal (https://github.com/iojs/io.js/issues/690)
+* Not possible to build io.js as a static library (https://github.com/iojs/io.js/issues/686)
+
+### Commits
+
+* df48faf - tools: add release tool and docs, remove old tools (Rod Vagg)
+* 14684d3 - v8abbr: ASCIISTRINGTAG => ONEBYTESTRINGTAG (Fedor Indutny)
+* 6a5d731 - gyp: enable postmortem support, fix dtrace paths (Fedor Indutny)
+* 8b88ff8 - deps: fix postmortem support in v8 (Fedor Indutny)
+* d0b0bb4 - dtrace: fix removal of unused probes (Glen Keane)
+* 3e67d7e - http: replace util.\_extend() with [].slice() (Jonathan Ong)
+* 89dd8e0 - benchmark: clean up common.js (Brendan Ashworth)
+* 6561274 - crypto: support passwords in publicEncrypt (Calvin Metcalf)
+* e9eb2ec - process: fix regression in unlistening signals (Sam Roberts)
+* 233e333 - events: remove indeterminancy from event ordering (Sam Roberts)
+* d75fecf - src: remove unused dtrace probes (Glen Keane)
+* 8c0742f - net: check close callback is function (Yosuke Furukawa)
+* 207e48c - dgram: check close callback is function (Yosuke Furukawa)
+* 6ac8bdc - lib: reduce util.is*() usage (cjihrig)
+* bce7a26 - deps: make node-gyp work again on windows (Bert Belder)
+* 1bdd74d - deps: make node-gyp fetch tarballs from iojs.org (Ben Noordhuis)
+* faf34ff - deps: upgrade npm to 2.4.1 (Forrest L Norvell)
+* 40e29dc - assert: use util.inspect() to create error messages (cjihrig)
+* bc2c85c - fs: improve error messages (Bert Belder)
+* 0767c2f - lib: fix max size check in Buffer constructor (Ben Noordhuis)
+* 65b1e4f - dgram: implicit binds should be exclusive (Sam Roberts)
+* 083c421 - benchmark: remove extra spacing in http options (Brendan Ashworth)
+* e17e6fb - util: use on-stack buffer for Utf8Value (Fedor Indutny)
+* 3d4e96f - crypto: use on-stack storage in HashUpdate (Fedor Indutny)
+* aca2011 - string_bytes: introduce InlineDecoder (Fedor Indutny)
+* c6367e7 - node: speed up ParseEncoding (Fedor Indutny)
+* 7604e6d - docs: add note about default padding in crypto (Calvin Metcalf)
+* cf3e908 - http: more descriptive setHeader errors (Qasim Zaidi)
+* cbc1262 - deps: upgrade v8 to 4.1.0.14 (Ben Noordhuis)
+* 00f822f - doc: add micnic as collaborator (Micleusanu Nicu)
+* 514b1d9 - doc: add more info to benchmark/README.md (Fishrock123)
+* 097fde7 - deps: update libuv to 1.3.0 (Saúl Ibarra Corretgé)
+* 6ad236c - build: configure formatting, add final message (Roman Reiss)
+* dd47a8c - src: set default signal dispositions at start-up (Ben Noordhuis)
+* 63ae1d2 - src: rework early debug signal handling (Ben Noordhuis)
+* 5756f92 - src: do platform-specific initialization earlier (Ben Noordhuis)
+* 24bd4e0 - test: add http upgrade header regression test (Ben Noordhuis)
+* 6605096 - deps: roll back http_parser to 2.3.0 (Ben Noordhuis)
+* 90ddb46 - crypto: remove use of this.\_readableState (Calvin Metcalf)
+* 45d8d9f - buffer: implement `iterable` interface (Vladimir Kurchatkin)
+* 3cbb5cd - console: allow Object.prototype fields as labels (cjihrig)
+* 87e62bd - crypto: implement privateEncrypt/publicDecrypt (Fedor Indutny)
+* b50fea4 - watchdog: fix timeout for early polling return (Saúl Ibarra Corretgé)
+* b5166cb - benchmark: add bench-(url & events) make targets (Yosuke Furukawa)
+* 5843ae8 - Revert "doc: clarify fs.symlink and fs.symlinkSync parameters" (Bert Belder)
+* 668bde8 - win,msi: broadcast WM_SETTINGCHANGE after install (Mathias Küsel)
+* 69ce064 - build: remove artefacts on distclean (Johan Bergström)
+* 1953886 - test: fs.createReadStream().destroy() fd leak (Rod Vagg)
+* 497fd72 - fs: fix fd leak in ReadStream.destroy() (Alex Kocharin)
+* 8b09ae7 - doc: add links for http_parser/libuv upgrades (Michael Hart)
+* 683e096 - src: remove excessive license boilerplate (Aleksey Smolenchuk)
+* 5c7ab96 - doc: fix net.Server.listen bind behavior (Andres Suarez)
+* 84b05d4 - doc: update writable streams default encoding (Johnny Ray Austin)
+* 1855267 - doc: fix minor grammar mistake in streams docs (ttrfwork)
+* 4f68369 - build: disable v8 snapshots (Ben Noordhuis)
+* c0a9d1b - versions: add http-parser patchlevel (Johan Bergström)
+* 7854811 - child_process: clone spawn options argument (cjihrig)
+* 88aaff9 - deps: update http_parser to 2.4.2 (Fedor Indutny)
+* 804ab7e - doc: add seishun as a collaborator (Nikolai Vavilov)
+* 301a968 - child_process: remove redundant condition (Vladimir Kurchatkin)
+* 06cfff9 - http: don't bother making a copy of the options (Jonathan Ong)
+* 55c222c - doc: add vkurchatkin as collaborator (Vladimir Kurchatkin)
+* 50ac4b7 - Working on 1.0.5 (Rod Vagg)
+* d1fc9c6 - 2015-01-24 io.js v1.0.4 Release (Rod Vagg)
+
 ## 2015-01-24, Version 1.0.4, @rvagg
 
 ### Notable changes
@@ -124,8 +307,8 @@
 
 * Windows installer fixes
 * Bundled node-gyp fixes for Windows
-* http_parser v2.4.1 upgrade
-* libuv v1.2.1 upgrade
+* [http_parser v2.4.1 upgrade](https://github.com/joyent/http-parser/compare/v2.3...v2.4.1)
+* [libuv v1.2.1 upgrade](https://github.com/libuv/libuv/compare/v1.2.0...v1.2.1)
 
 ### Commits
 

@@ -59,6 +59,12 @@ NODE_EXTERN v8::Local<v8::Value> UVException(v8::Isolate* isolate,
                                              const char* syscall = NULL,
                                              const char* message = NULL,
                                              const char* path = NULL);
+NODE_EXTERN v8::Local<v8::Value> UVException(v8::Isolate* isolate,
+                                             int errorno,
+                                             const char* syscall,
+                                             const char* message,
+                                             const char* path,
+                                             const char* dest);
 
 NODE_DEPRECATED("Use UVException(isolate, ...)",
                 inline v8::Local<v8::Value> ErrnoException(
@@ -231,12 +237,12 @@ inline void NODE_SET_PROTOTYPE_METHOD(v8::Handle<v8::FunctionTemplate> recv,
 enum encoding {ASCII, UTF8, BASE64, UCS2, BINARY, HEX, BUFFER};
 enum encoding ParseEncoding(v8::Isolate* isolate,
                             v8::Handle<v8::Value> encoding_v,
-                            enum encoding _default = BINARY);
+                            enum encoding default_encoding = BINARY);
 NODE_DEPRECATED("Use ParseEncoding(isolate, ...)",
                 inline enum encoding ParseEncoding(
       v8::Handle<v8::Value> encoding_v,
-      enum encoding _default = BINARY) {
-  return ParseEncoding(v8::Isolate::GetCurrent(), encoding_v, _default);
+      enum encoding default_encoding = BINARY) {
+  return ParseEncoding(v8::Isolate::GetCurrent(), encoding_v, default_encoding);
 })
 
 NODE_EXTERN void FatalException(v8::Isolate* isolate,
