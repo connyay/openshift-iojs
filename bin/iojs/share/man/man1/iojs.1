@@ -52,6 +52,8 @@ and servers.
   -i, --interactive      always enter the REPL even if stdin
                          does not appear to be a terminal
 
+  -r, --require          module to preload at startup
+
   --no-deprecation       silence deprecation warnings
 
   --trace-deprecation    show stack traces on deprecations
@@ -60,16 +62,11 @@ and servers.
 
   --v8-options           print v8 command line options
 
-  --max-stack-size=val   set max v8 stack size (bytes)
-
 
 .SH ENVIRONMENT VARIABLES
 
 .IP NODE_PATH
 \':\'\-separated list of directories prefixed to the module search path.
-
-.IP NODE_MODULE_CONTEXTS
-If set to 1 then modules will load in their own global contexts.
 
 .IP NODE_DISABLE_COLORS
 If set to 1 then colors will not be used in the REPL.
@@ -82,7 +79,7 @@ If set to 1 then colors will not be used in the REPL.
         type: bool  default: false
   --harmony (enable all completed harmony features)
         type: bool  default: false
-  --harmony_shipping (enable all shipped harmony fetaures)
+  --harmony_shipping (enable all shipped harmony features)
         type: bool  default: true
   --harmony_modules (enable "harmony modules (implies block scoping)" (in progress))
         type: bool  default: false

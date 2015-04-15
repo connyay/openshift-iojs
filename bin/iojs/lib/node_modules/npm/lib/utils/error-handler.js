@@ -287,6 +287,7 @@ function errorHandler (er) {
   case "ECONNRESET":
   case "ENOTFOUND":
   case "ETIMEDOUT":
+  case "EAI_FAIL":
     log.error("network", [er.message
               ,"This is most likely not a problem with npm itself"
               ,"and is related to network connectivity."
@@ -304,11 +305,15 @@ function errorHandler (er) {
     break
 
   case "ETARGET":
-    log.error("notarget", [er.message
+    var msg = [er.message
               ,"This is most likely not a problem with npm itself."
               ,"In most cases you or one of your dependencies are requesting"
               ,"a package version that doesn't exist."
-              ].join("\n"))
+              ]
+      if (er.parent) {
+        msg.push("\nIt was specified as a dependency of '"+er.parent+"'\n")
+      }
+      log.error("notarget", msg.join("\n"))
     break
 
   case "ENOTSUP":
@@ -350,7 +355,7 @@ function errorHandler (er) {
   default:
     log.error("", er.message || er)
     log.error("", ["", "If you need help, you may report this error at:"
-                  ,"    <http://github.com/npm/npm/issues>"
+                  ,"    <https://github.com/npm/npm/issues>"
                   ].join("\n"))
     break
   }

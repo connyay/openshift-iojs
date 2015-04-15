@@ -80,7 +80,7 @@ the binary verification command above.
 Prerequisites:
 
 * `gcc` and `g++` 4.8 or newer, or
-* `clang` and `clang++` 3.3 or newer
+* `clang` and `clang++` 3.4 or newer
 * Python 2.6 or 2.7
 * GNU Make 3.81 or newer
 * libexecinfo (FreeBSD and OpenBSD only)
@@ -138,6 +138,17 @@ To run the tests:
 
 ```text
 > vcbuild test
+```
+
+### Android / Android based devices, aka. Firefox OS
+
+Be sure you have downloaded and extracted [Android NDK]
+(https://developer.android.com/tools/sdk/ndk/index.html)
+before in a folder. Then run:
+
+```
+$ ./android-configure /path/to/your/android-ndk
+$ make
 ```
 
 ### `Intl` (ECMA-402) support:
@@ -262,14 +273,15 @@ information about the governance of the io.js project, see
 * **Fedor Indutny** ([@indutny](https://github.com/indutny)) &lt;fedor.indutny@gmail.com&gt; (Technical Committee)
 * **Trevor Norris** ([@trevnorris](https://github.com/trevnorris)) &lt;trev.norris@gmail.com&gt; (Technical Committee)
 * **Chris Dickinson** ([@chrisdickinson](https://github.com/chrisdickinson)) &lt;christopher.s.dickinson@gmail.com&gt; (Technical Committee)
-<br>Release GPG key: 9554F04D7259F04124DE6B476D5A82AC7E37093B
-* **Colin Ihrig** ([@cjihrig](https://github.com/cjihrig)) &lt;cjihrig@gmail.com&gt; (Technical Committee)
+  - Release GPG key: 9554F04D7259F04124DE6B476D5A82AC7E37093B
+* **Colin Ihrig** ([@cjihrig](https://github.com/cjihrig)) &lt;cjihrig@gmail.com&gt;
 * **Mikeal Rogers** ([@mikeal](https://github.com/mikeal)) &lt;mikeal.rogers@gmail.com&gt;
 * **Rod Vagg** ([@rvagg](https://github.com/rvagg)) &lt;rod@vagg.org&gt;
-<br>Release GPG key: DD8F2338BAE7501E3DD5AC78C273792F7D83545D
+  - Release GPG key: DD8F2338BAE7501E3DD5AC78C273792F7D83545D
 * **Thorsten Lorenz** ([@thlorenz](https://github.com/thlorenz)) &lt;thlorenz@gmx.de&gt;
 * **Stephen Belanger** ([@qard](https://github.com/qard)) &lt;admin@stephenbelanger.com&gt;
 * **Jeremiah Senkpiel** ([@fishrock123](https://github.com/fishrock123)) &lt;fishrock123@rocketmail.com&gt;
+  - Release GPG key: FD3A5288F042B6850C66B31F09FE44734EB7990E
 * **Evan Lucas** ([@evanlucas](https://github.com/evanlucas)) &lt;evanlucas@me.com&gt;
 * **Brendan Ashworth** ([@brendanashworth](https://github.com/brendanashworth)) &lt;brendan.ashworth@me.com&gt;
 * **Vladimir Kurchatkin** ([@vkurchatkin](https://github.com/vkurchatkin)) &lt;vladimir.kurchatkin@gmail.com&gt;
@@ -283,6 +295,10 @@ information about the governance of the io.js project, see
 * **Christian Vaagland Tellnes** ([@tellnes](https://github.com/tellnes)) &lt;christian@tellnes.com&gt;
 * **Robert Kowalski** ([@robertkowalski](https://github.com/robertkowalski)) &lt;rok@kowalski.gd&gt;
 * **Julian Duque** ([@julianduque](https://github.com/julianduque)) &lt;julianduquej@gmail.com&gt;
+* **Johan Bergström** ([@jbergstroem](https://github.com/jbergstroem)) &lt;bugs@bergstroem.nu&gt;
+* **Roman Reiss** ([@silverwind](https://github.com/silverwind)) &lt;me@silverwind.io&gt;
+* **Petka Antonov** ([@petkaantonov](https://github.com/petkaantonov)) &lt;petka_antonov@hotmail.com&gt;
+* **Yosuke Furukawa** ([@yosuke-furukawa](https://github.com/yosuke-furukawa)) &lt;yosuke.furukawa@gmail.com&gt;
 
 Collaborators follow the [COLLABORATOR_GUIDE.md](./COLLABORATOR_GUIDE.md) in
 maintaining the io.js project.

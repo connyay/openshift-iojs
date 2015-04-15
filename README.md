@@ -1,15 +1,13 @@
 # [io.js](https://iojs.org/) cartridge for [OpenShift](https://www.openshift.com/)
 
-## [io.js](https://iojs.org/) is still in beta stability. Please use this at your own risk!
-
 ## Usage
 
 `rhc create-app <app name> http://tinyurl.com/OpenShiftIOJS`
 
 What this cartridge provides out of the box
 ---
-1. **io.js** ([latest stable](http://semver.io/iojs/stable) currently 1.4.3)
-2. **npm** (latest stable currently 2.6.1)
+1. **io.js** ([latest stable](http://semver.io/iojs/stable) currently 1.7.1)
+2. **npm** (latest stable currently 2.7.6)
 3. **grunt**
 4. **bower**
 
@@ -24,7 +22,7 @@ What this cartridge does out of the box
 
 Note
 ---
-For now I just dropped the contents of the iojs-v1.4.3.tar.xz [here](bin/iojs). Once io.js stabalizes I will move to resolving the latest stable and downloading on the gear.
+For now I just dropped the contents of the iojs-v1.7.1.tar.xz [here](bin/iojs). Once io.js stabalizes I will move to resolving the latest stable and downloading on the gear.
 
 Thanks!
 ---
