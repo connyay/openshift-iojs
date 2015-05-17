@@ -30,5 +30,5 @@
                  'v8_no_strict_aliasing': 1,
                  'v8_optimized_debug': 0,
                  'v8_random_seed': 0,
-                 'v8_use_snapshot': 'false',
+                 'v8_use_snapshot': 1,
                  'want_separate_host_toolset': 0}}
