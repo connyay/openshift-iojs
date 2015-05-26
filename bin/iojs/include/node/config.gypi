@@ -22,7 +22,6 @@
                  'openssl_no_asm': 0,
                  'python': '/home/iojs/bin/python',
                  'target_arch': 'x64',
-                 'uv_library': 'static_library',
                  'uv_parent_path': '/deps/uv/',
                  'uv_use_dtrace': 'false',
                  'v8_enable_gdbjit': 0,
