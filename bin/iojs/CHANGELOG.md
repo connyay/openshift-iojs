@@ -1,6 +1,75 @@
 # io.js ChangeLog
 
-## 2015-05-24, Version 2.0.3, @rvagg
+## 2015-06-01, Version 2.2.1, @rvagg
+
+### Notable changes
+
+* **http**: reverts the removal of an undocumented `client` property on client connections, this property is being used in the wild, most notably by [request](https://github.com/request/request) which is used by npm. (Michaël Zasso) [#1852](https://github.com/nodejs/io.js/pull/1852).
+
+### Known issues
+
+See https://github.com/nodejs/io.js/labels/confirmed-bug for complete and current list of known issues.
+
+* Some problems with unreferenced timers running during `beforeExit` are still to be resolved. See [#1264](https://github.com/nodejs/io.js/issues/1264).
+* Surrogate pair in REPL can freeze terminal [#690](https://github.com/nodejs/io.js/issues/690)
+* `process.send()` is not synchronous as the docs suggest, a regression introduced in 1.0.2, see [#760](https://github.com/nodejs/io.js/issues/760) and fix in [#774](https://github.com/nodejs/io.js/issues/774)
+* Calling `dns.setServers()` while a DNS query is in progress can cause the process to crash on a failed assertion [#894](https://github.com/nodejs/io.js/issues/894)
+* `url.resolve` may transfer the auth portion of the url when resolving between two full hosts, see [#1435](https://github.com/nodejs/io.js/issues/1435).
+
+### Commits
+
+* [[`c5a1009903`](https://github.com/nodejs/io.js/commit/c5a1009903)] - **build**: avoid passing empty strings to build flags (Johan Bergström) [#1789](https://github.com/nodejs/io.js/pull/1789)
+* [[`5d83401086`](https://github.com/nodejs/io.js/commit/5d83401086)] - **doc**: put SEMVER-MINOR on pre-load module fix 2.2.0 (Rod Vagg) 
+* [[`4d6b768e5d`](https://github.com/nodejs/io.js/commit/4d6b768e5d)] - **http**: revert deprecation of client property (Michaël Zasso) [#1852](https://github.com/nodejs/io.js/pull/1852) 
+
+## 2015-05-31, Version 2.2.0, @rvagg
+
+### Notable changes
+
+* **node**: Speed-up `require()` by replacing usage of `fs.statSync()` and `fs.readFileSync()` with internal variants that are faster for this use-case and do not create as many objects for the garbage collector to clean up. The primary two benefits are: significant increase in application start-up time on typical applications and better start-up time for the debugger by eliminating almost all of the thousands of exception events. (Ben Noordhuis) [#1801](https://github.com/nodejs/io.js/pull/1801).
+* **node**: Resolution of pre-load modules (`-r` or `--require`) now follows the standard `require()` rules rather than just resolving paths, so you can now pre-load modules in node_modules. (Ali Ijaz Sheikh) [#1812](https://github.com/nodejs/io.js/pull/1812).
+* **npm**: Upgraded npm to v2.11.0. New hooks for `preversion`, `version`, and `postversion` lifecycle events, some SPDX-related license changes and license file inclusions. See the [release notes](https://github.com/npm/npm/releases/tag/v2.11.0) for full details.
+
+### Known issues
+
+See https://github.com/nodejs/io.js/labels/confirmed-bug for complete and current list of known issues.
+
+* Some problems with unreferenced timers running during `beforeExit` are still to be resolved. See [#1264](https://github.com/nodejs/io.js/issues/1264).
+* Surrogate pair in REPL can freeze terminal [#690](https://github.com/nodejs/io.js/issues/690)
+* `process.send()` is not synchronous as the docs suggest, a regression introduced in 1.0.2, see [#760](https://github.com/nodejs/io.js/issues/760) and fix in [#774](https://github.com/nodejs/io.js/issues/774)
+* Calling `dns.setServers()` while a DNS query is in progress can cause the process to crash on a failed assertion [#894](https://github.com/nodejs/io.js/issues/894)
+* `url.resolve` may transfer the auth portion of the url when resolving between two full hosts, see [#1435](https://github.com/nodejs/io.js/issues/1435).
+
+### Commits
+
+* [[`a77c330c32`](https://github.com/nodejs/io.js/commit/a77c330c32)] - **(SEMVER-MINOR)** **child_process**: expose ChildProcess constructor (Evan Lucas) [#1760](https://github.com/nodejs/io.js/pull/1760)
+* [[`3a1bc067d4`](https://github.com/nodejs/io.js/commit/3a1bc067d4)] - ***Revert*** "**core**: set PROVIDER type as Persistent class id" (Ben Noordhuis) [#1827](https://github.com/nodejs/io.js/pull/1827)
+* [[`f9fd554500`](https://github.com/nodejs/io.js/commit/f9fd554500)] - **deps**: make node-gyp work with io.js (cjihrig) [iojs/io.js#990](https://github.com/iojs/io.js/pull/990)
+* [[`c1afa53648`](https://github.com/nodejs/io.js/commit/c1afa53648)] - **deps**: upgrade npm to 2.11.0 (Forrest L Norvell) [iojs/io.js#1829](https://github.com/iojs/io.js/pull/1829)
+* [[`ff794498e7`](https://github.com/nodejs/io.js/commit/ff794498e7)] - **doc**: `fs.*File()` also accept encoding strings (Rich Trott) [#1806](https://github.com/nodejs/io.js/pull/1806)
+* [[`98649fd31a`](https://github.com/nodejs/io.js/commit/98649fd31a)] - **doc**: add documentation for AtExit hook (Steve Sharp) [#1014](https://github.com/nodejs/io.js/pull/1014)
+* [[`eb1856dfd1`](https://github.com/nodejs/io.js/commit/eb1856dfd1)] - **doc**: clarify stability of fs.watch and relatives (Rich Trott) [#1775](https://github.com/nodejs/io.js/pull/1775)
+* [[`a74c2c9458`](https://github.com/nodejs/io.js/commit/a74c2c9458)] - **doc**: state url decoding behavior (Josh Gummersall) [#1731](https://github.com/nodejs/io.js/pull/1731)
+* [[`ba76a9d872`](https://github.com/nodejs/io.js/commit/ba76a9d872)] - **doc**: remove bad semver-major entry from CHANGELOG (Rod Vagg) [#1782](https://github.com/nodejs/io.js/pull/1782)
+* [[`a6a3f8c78d`](https://github.com/nodejs/io.js/commit/a6a3f8c78d)] - **doc**: fix changelog s/2.0.3/2.1.0 (Rod Vagg)
+* [[`2c686fd3ce`](https://github.com/nodejs/io.js/commit/2c686fd3ce)] - **http**: flush stored header (Vladimir Kurchatkin) [#1695](https://github.com/nodejs/io.js/pull/1695)
+* [[`1eec5f091a`](https://github.com/nodejs/io.js/commit/1eec5f091a)] - **http**: simplify code and remove unused properties (Brian White) [#1572](https://github.com/nodejs/io.js/pull/1572)
+* [[`1bbf8d0720`](https://github.com/nodejs/io.js/commit/1bbf8d0720)] - **lib**: speed up require(), phase 2 (Ben Noordhuis) [#1801](https://github.com/nodejs/io.js/pull/1801)
+* [[`b14fd1a720`](https://github.com/nodejs/io.js/commit/b14fd1a720)] - **lib**: speed up require(), phase 1 (Ben Noordhuis) [#1801](https://github.com/nodejs/io.js/pull/1801)
+* [[`5abd4ac079`](https://github.com/nodejs/io.js/commit/5abd4ac079)] - **lib**: simplify nextTick() usage (Brian White) [#1612](https://github.com/nodejs/io.js/pull/1612)
+* [[`5759722cfa`](https://github.com/nodejs/io.js/commit/5759722cfa)] - **(SEMVER-MINOR)** **src**: fix module search path for preload modules (Ali Ijaz Sheikh) [#1812](https://github.com/nodejs/io.js/pull/1812)
+* [[`a65762cab6`](https://github.com/nodejs/io.js/commit/a65762cab6)] - **src**: remove old code (Brendan Ashworth) [#1819](https://github.com/nodejs/io.js/pull/1819)
+* [[`93a44d5228`](https://github.com/nodejs/io.js/commit/93a44d5228)] - **src**: fix deferred events not working with -e (Ben Noordhuis) [#1793](https://github.com/nodejs/io.js/pull/1793)
+* [[`8059393934`](https://github.com/nodejs/io.js/commit/8059393934)] - **test**: check error type from net.Server.listen() (Rich Trott) [#1821](https://github.com/nodejs/io.js/pull/1821)
+* [[`4e90c82cdb`](https://github.com/nodejs/io.js/commit/4e90c82cdb)] - **test**: add heap profiler add-on regression test (Ben Noordhuis) [#1828](https://github.com/nodejs/io.js/pull/1828)
+* [[`6dfca71af0`](https://github.com/nodejs/io.js/commit/6dfca71af0)] - **test**: don't lint autogenerated test/addons/doc-*/ (Ben Noordhuis) [#1793](https://github.com/nodejs/io.js/pull/1793)
+* [[`c2b8b30836`](https://github.com/nodejs/io.js/commit/c2b8b30836)] - **test**: remove stray copyright notices (Ben Noordhuis) [#1793](https://github.com/nodejs/io.js/pull/1793)
+* [[`280fb01daf`](https://github.com/nodejs/io.js/commit/280fb01daf)] - **test**: fix deprecation warning in addons test (Ben Noordhuis) [#1793](https://github.com/nodejs/io.js/pull/1793)
+* [[`8606793999`](https://github.com/nodejs/io.js/commit/8606793999)] - **tools**: pass constant to logger instead of string (Johan Bergström) [#1842](https://github.com/nodejs/io.js/pull/1842)
+* [[`fbd2b59716`](https://github.com/nodejs/io.js/commit/fbd2b59716)] - **tools**: add objectLiteralShorthandProperties to .eslintrc (Evan Lucas) [#1760](https://github.com/nodejs/io.js/pull/1760)
+* [[`53e98cc1b4`](https://github.com/nodejs/io.js/commit/53e98cc1b4)] - **win,node-gyp**: enable delay-load hook by default (Bert Belder) [#1763](https://github.com/nodejs/io.js/pull/1763)
+
+## 2015-05-24, Version 2.1.0, @rvagg
 
 ### Notable changes
 
@@ -22,7 +91,6 @@ See https://github.com/nodejs/io.js/labels/confirmed-bug for complete and curren
 
 ### Commits
 
-* [[`a3ee6a5ad2`](https://github.com/nodejs/io.js/commit/a3ee6a5ad2)] - **(SEMVER-MAJOR)** 2015-05-24 io.js v2.1.0 Release (Rod Vagg) [iojs/io.js#1532](https://github.com/iojs/io.js/pull/1532)
 * [[`9da168b71f`](https://github.com/nodejs/io.js/commit/9da168b71f)] - **buffer**: optimize Buffer.byteLength (Brendan Ashworth) [#1713](https://github.com/nodejs/io.js/pull/1713)
 * [[`2b1c01c2cc`](https://github.com/nodejs/io.js/commit/2b1c01c2cc)] - **build**: refactor pkg-config for shared libraries (Johan Bergström) [#1603](https://github.com/nodejs/io.js/pull/1603)
 * [[`3c44100558`](https://github.com/nodejs/io.js/commit/3c44100558)] - **core**: set PROVIDER type as Persistent class id (Trevor Norris) [#1730](https://github.com/nodejs/io.js/pull/1730)
