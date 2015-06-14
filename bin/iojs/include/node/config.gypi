@@ -19,6 +19,7 @@
                  'node_use_lttng': 'false',
                  'node_use_openssl': 'true',
                  'node_use_perfctr': 'false',
+                 'openssl_fips': '',
                  'openssl_no_asm': 0,
                  'python': '/home/iojs/bin/python',
                  'target_arch': 'x64',
