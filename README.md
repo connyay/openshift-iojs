@@ -8,15 +8,17 @@ What this cartridge provides out of the box
 ---
 1. **io.js** ([latest stable](http://semver.io/iojs/stable) currently 2.3.0)
 2. **npm** (latest stable currently 2.11.1)
-3. **grunt**
-4. **bower**
+3. **[grunt](https://www.npmjs.com/package/grunt-cli)**
+4. **[gulp](https://www.npmjs.com/package/gulp)**
+5. **[forever](https://www.npmjs.com/package/forever)**
+6. **[bower](https://www.npmjs.com/package/bower)**
 
 What this cartridge does out of the box
 ---
 *Not much.*
 
 1. Installs io.js
-2. Installs grunt, bower, and forever globally (specified by `$OPENSHIFT_NPM_GLOBALS`)
+2. Installs grunt, gulp, bower, and forever globally (specified by `$OPENSHIFT_NPM_GLOBALS`)
 3. Allows the user to manually install required dependencies (in a `build` [action_hook](http://openshift.github.io/documentation/oo_user_guide.html#action-hooks)). An example of this can be found [here](template/.openshift/action_hooks/build)
 4. Runs `npm start` if `package.json` is found in repo directory (log is written to `$OPENSHIFT_IOJS_LOG_DIR`)
 
