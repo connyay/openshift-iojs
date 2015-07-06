@@ -3,7 +3,7 @@
 
 #define NODE_MAJOR_VERSION 2
 #define NODE_MINOR_VERSION 3
-#define NODE_PATCH_VERSION 1
+#define NODE_PATCH_VERSION 3
 
 #define NODE_VERSION_IS_RELEASE 1
 
@@ -12,23 +12,18 @@
 #define NODE_STRINGIFY_HELPER(n) #n
 #endif
 
-#if NODE_VERSION_IS_RELEASE
-# ifndef NODE_TAG
+#ifndef NODE_TAG
+# if NODE_VERSION_IS_RELEASE
 #  define NODE_TAG ""
-# endif
-# define NODE_VERSION_STRING  NODE_STRINGIFY(NODE_MAJOR_VERSION) "." \
-                              NODE_STRINGIFY(NODE_MINOR_VERSION) "." \
-                              NODE_STRINGIFY(NODE_PATCH_VERSION)     \
-                              NODE_TAG
-#else
-# ifndef NODE_TAG
+# else
 #  define NODE_TAG "-pre"
 # endif
+#endif
+
 # define NODE_VERSION_STRING  NODE_STRINGIFY(NODE_MAJOR_VERSION) "." \
                               NODE_STRINGIFY(NODE_MINOR_VERSION) "." \
                               NODE_STRINGIFY(NODE_PATCH_VERSION)     \
                               NODE_TAG
-#endif
 
 #define NODE_VERSION "v" NODE_VERSION_STRING
 
