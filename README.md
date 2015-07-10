@@ -2,7 +2,7 @@
 
 ## Usage
 
-`rhc create-app <app name> http://tinyurl.com/OpenShiftIOJS`
+`rhc create-app <app name> https://raw.githubusercontent.com/connyay/openshift-iojs/master/metadata/manifest.yml`
 
 What this cartridge provides out of the box
 ---
