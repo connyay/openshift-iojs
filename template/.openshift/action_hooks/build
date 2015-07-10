@@ -7,13 +7,13 @@
 #cd $OPENSHIFT_REPO_DIR
 
 # Cache npm and bower components on main gear
-if [ "$OPENSHIFT_GEAR_UUID" == "$OPENSHIFT_APP_UUID" ]; then
+#if [ "$OPENSHIFT_GEAR_UUID" == "$OPENSHIFT_APP_UUID" ]; then
   #mkdir -p "$OPENSHIFT_DATA_DIR"node_modules
   #mkdir -p "$OPENSHIFT_DATA_DIR"bower_components
 
   #ln -s "$OPENSHIFT_DATA_DIR"node_modules node_modules
   #ln -s "$OPENSHIFT_DATA_DIR"bower_components bower_components
-fi
+#fi
 
 #npm install --loglevel error
 
