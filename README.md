@@ -9,6 +9,7 @@
 There is an example express application that uses this cartridge that can be found here: [connyay/express-openshift-iojs](https://github.com/connyay/express-openshift-iojs).
 
 Common pitfalls are:
+
 1. [Build hook](https://github.com/connyay/express-openshift-iojs/blob/master/.openshift/action_hooks/build)
 2. [Port & IP config](https://github.com/connyay/express-openshift-iojs/blob/master/app.js#L6-L7)
 
