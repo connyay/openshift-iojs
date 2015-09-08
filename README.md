@@ -1,5 +1,8 @@
 # [io.js](https://iojs.org/) cartridge for [OpenShift](https://www.openshift.com/)
 
+## Looking for node.js v4?
+See [connyay/openshift-node4](https://github.com/connyay/openshift-node4)
+
 ## Usage
 
 `rhc create-app <app name> https://raw.githubusercontent.com/connyay/openshift-iojs/master/metadata/manifest.yml`
