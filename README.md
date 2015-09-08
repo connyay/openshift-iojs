@@ -16,7 +16,7 @@ Common pitfalls are:
 
 What this cartridge provides out of the box
 ---
-1. **io.js** ([latest stable](http://semver.io/iojs/stable) currently 3.1.0)
+1. **io.js** ([latest stable](http://semver.io/iojs/stable) currently 3.3.0)
 2. **npm** (latest stable currently 2.13.3)
 3. **[grunt](https://www.npmjs.com/package/grunt-cli)**
 4. **[gulp](https://www.npmjs.com/package/gulp)**
@@ -34,7 +34,7 @@ What this cartridge does out of the box
 
 Note
 ---
-For now I just dropped the contents of the iojs-v3.1.0.tar.xz [here](bin/iojs). Once io.js stabalizes I will move to resolving the latest stable and downloading on the gear.
+For now I just dropped the contents of the iojs-v3.3.0.tar.xz [here](bin/iojs). Once io.js stabalizes I will move to resolving the latest stable and downloading on the gear.
 
 Thanks!
 ---
