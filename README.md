@@ -1,3 +1,6 @@
+# This project is no longer maintained. PRs will be accepted.
+
+
 # [io.js](https://iojs.org/) cartridge for [OpenShift](https://www.openshift.com/)
 
 ## Looking for node.js v4?
